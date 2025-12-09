@@ -2,7 +2,7 @@
 # commande srm qui déplace le fichier dans une poubelle nommée trash
 
 # Vérifie qu'il y a exactement un argument
-if [ $# != 1 ]; then
+if [ $# -ne 1 ]; then
     echo "Usage: $0 fich_ou_rep"
     exit 1
 fi
@@ -11,7 +11,7 @@ fi
 if [ ! -e ~/Bureau/trash ]; then
     echo "Création de ~/Bureau/trash"
     mkdir -p ~/Bureau/trash
-    if [ $? != 0 ]; then
+    if [ $? -ne 0 ]; then
         echo "Problème pour créer le répertoire ~/Bureau/trash/"
         exit 1
     fi
