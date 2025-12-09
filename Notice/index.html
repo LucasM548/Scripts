@@ -1,13 +1,89 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notice Page</title>
+    <title>Documentation du Projet</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend&display=swap" rel="stylesheet">
 </head>
+
 <body>
-    <header>
-        <h1>Notice Board</h1>
-    </header>
-    <main>
+
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <ul>
+                <li><a href="#intro">Introduction</a></li>
+                <li><a href="#installation">Installation</a></li>
+                <li><a href="#usage">Utilisation</a></li>
+                <li><a href="#components">Composants</a></li>
+                <li><a href="#api">API Reference</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="content">
+            <header>
+                <h1>Documentation Utilisateur</h1>
+                <p class="subtitle">Guide complet pour l'utilisation et la configuration.</p>
+            </header>
+
+            <section id="intro">
+                <h2>Introduction</h2>
+                <p>Bienvenue sur la documentation officielle. Cette page sert de modèle pour présenter les
+                    fonctionnalités de votre projet de manière claire et structurée.</p>
+                <div class="note info">
+                    <strong>Note:</strong> Ceci est une version de démonstration de la mise en page.
+                </div>
+            </section>
+
+            <section id="installation">
+                <h2>Installation</h2>
+                <p>Pour commencer, clonez le dépôt et installez les dépendances :</p>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="lang">bash</span>
+                    </div>
+                    <pre>git clone https://github.com/votre-projet/repo.git
+cd repo
+npm install</pre>
+                </div>
+            </section>
+
+            <section id="usage">
+                <h2>Utilisation</h2>
+                <p>Voici un exemple de configuration de base :</p>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="lang">bash</span>
+                    </div>
+                    <pre>import { Config } from './config';
+
+const app = new Config({
+    env: 'production',
+    debug: false
+});
+
+app.start();</pre>
+                </div>
+            </section>
+
+            <section id="visuals">
+                <h2>Aperçu Visuel</h2>
+                <p>Voici à quoi ressemble l'interface principale :</p>
+                <div class="image-placeholder">
+                    <p>Image de l'interface utilisateur (1200x600)</p>
+                </div>
+            </section>
+
+            <footer>
+                <p>SAÉ-S1-3 | MARTINATI Lucas -- CHARLES Samuel</p>
+            </footer>
+        </main>
+    </div>
+
+</body>
+
+</html>

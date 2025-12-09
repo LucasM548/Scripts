@@ -1,0 +1,157 @@
+:root {
+    --primary-color: #2563eb;
+    --sidebar-width: 280px;
+    --text-color: #333;
+    --bg-color: #ffffff;
+    --sidebar-bg: #f8f9fa;
+    --code-bg: #1e1e1e;
+    --border-color: #e5e7eb;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Lexend', sans-serif;
+    color: var(--text-color);
+    line-height: 1.6;
+    box-sizing: border-box;
+}
+
+/* Layout */
+.container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+    width: var(--sidebar-width);
+    background: var(--sidebar-bg);
+    border-right: 1px solid var(--border-color);
+    position: fixed;
+    height: 100vh;
+    padding: 2rem;
+    overflow-y: auto;
+}
+
+.sidebar ul {
+    list-style: none;
+}
+
+.sidebar li {
+    margin-bottom: 0.5rem;
+}
+
+.sidebar a {
+    text-decoration: none;
+    color: #666;
+    display: block;
+    padding: 0.5rem 0;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.sidebar a:hover {
+    color: var(--primary-color);
+}
+
+/* Main Content */
+.content {
+    margin-left: var(--sidebar-width);
+    padding: 4rem 6rem;
+    max-width: 1000px;
+    width: 100%;
+}
+
+.subtitle {
+    font-size: 1.25rem;
+    color: #666;
+    margin-top: 0.5rem;
+    margin-bottom: 3rem;
+}
+
+section {
+    margin-bottom: 4rem;
+    scroll-margin-top: 2rem;
+}
+
+h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+p {
+    margin-bottom: 1rem;
+}
+
+/* Code Blocks */
+.code-block {
+    background: var(--code-bg);
+    border-radius: 8px;
+    margin: 1.5rem 0;
+    overflow: hidden;
+    color: #e0e0e0;
+    font-family: 'Fira Code', monospace;
+}
+
+.code-header {
+    background: #2d2d2d;
+    padding: 0.5rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+    color: #aaa;
+}
+
+pre {
+    padding: 1.5rem;
+    overflow-x: auto;
+}
+
+/* Components */
+.note {
+    padding: 1rem 1.5rem;
+    border-radius: 6px;
+    background: #eef2ff;
+    border-left: 4px solid var(--primary-color);
+    margin: 1.5rem 0;
+}
+
+.image-placeholder {
+    width: 100%;
+    height: 300px;
+    background: #f0f0f0;
+    border: 2px dashed #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    color: #666;
+    margin: 1.5rem 0;
+}
+
+/* Footer */
+footer {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+    color: #888;
+    font-size: 0.9rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .sidebar {
+        display: none;
+    }
+    .content {
+        margin-left: 0;
+        padding: 2rem;
+    }
+}
