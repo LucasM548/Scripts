@@ -13,6 +13,12 @@ if [ ! -f "$1" ]; then
     exit 2
 fi
 
+# Vérifie que l'utilisateur à bien lancer le script en mode administrateur (avec un sudo avant)
+if [ $(id -u) -ne 0 ]; then
+    echo "Le script doit être executé en mode administrateur (sudo)"
+    exit 3
+fi
+
 # Stock le nombre de ligne du fichier configuration
 nbLines=$(wc -l < "$1") # Le < permet de retourner uniquement le nombre de ligne
 
