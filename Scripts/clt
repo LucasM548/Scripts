@@ -1,5 +1,5 @@
 #!/bin/bash
-# commande srm qui déplace le fichier dans une poubelle nommée trash
+# commande clt qui 
 
 # Vérifie qu'il y a exactement un argument
 if [ $# -ne 0 ]; then

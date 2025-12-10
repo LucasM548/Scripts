@@ -1,5 +1,5 @@
 #!/bin/bash
-# commande rft qui drécupère un fichier mis dans la corbeile
+# commande rft qui récupère un fichier mis dans la corbeile
 
 if [ $# -ne 1 ] && [ $# -ne 2 ] ; then
     echo ""Usage: $0 fich_ou_rep rep""
