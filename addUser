@@ -33,7 +33,7 @@ touch /var/log/install.log
 log="/var/log/install.log"
 
 # Analyse de chaque ligne du fichier
-for ((i = 1; i <= $nbLines; i++)); do
+for ((i = 1; i <= $nbLines+1; i++)); do
     # Stock la ligne numéro i dans une variable
     Lines=$(sed -n "${i}p" "$1" | tr -d " ")
     # Le <<< permet d'envoyer une chaine de caractère sans utiliser un echo avec un pipe
@@ -58,7 +58,7 @@ for ((i = 1; i <= $nbLines; i++)); do
 
             echo -e "alias e='emacs'\nalias w='wireshark'" >> $rephome/$user/.bashrc
             # Ajouter le path /Scripts à la suite des path déjà présent dans le fichier .bashrc
-            export "PATH=$PATH:/SAE/Scripts"
+            echo -e 'export "PATH=$PATH:/SAE/Scripts' >> $rephome/$user/.bashrc
             source "$rephome/$user/.bashrc"
             # Rendre les dossiers à l'utilisateur (sinon ils sont à root)
             chown -R "$user:$group" "$rephome/$user"
