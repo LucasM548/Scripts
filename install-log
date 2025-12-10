@@ -1,0 +1,12 @@
+/var/log/install.log {
+    # 200 octets max
+    size 200
+    # Conserve max 5 fichiers
+    rotate 5
+    # Compress le fichier
+    compress
+    # Créer un nouveau fichier log vide après la rotation
+    create
+    # Ne fait rien si le fichier n'existe pas
+    missingok
+}

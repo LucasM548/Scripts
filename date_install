@@ -1,0 +1,7 @@
+/var/log/date_install.log {
+    size 200
+    rotate 5
+    compress
+    create
+    missingok
+}

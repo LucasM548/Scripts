@@ -1,0 +1,12 @@
+[Unit]
+Description=Surveille les modifications de install.log
+
+[Path]
+# Surveille les modifications du fichier var/log/install.log
+PathChanged=/var/log/install.log
+# Appelle le service install-log.service lors d'un changement
+Unit=install-log.service
+
+[Install]
+# Active le chemin lors du démarrage du système
+WantedBy=multi-user.target
