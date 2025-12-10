@@ -1,13 +1,13 @@
 #!/bin/bash
 # commande lkt qui affiche le contenu du fichier trash
 
-if [ ! -d ~/Bureau/trash ], then
+if [ ! -d ~/Bureau/trash ]; then
     echo "Le répertoire "~/Bureau/trash" n'existe pas."
     exit 1
 fi
 
 echo "Contenu de trash :"
 ls -l ~/Bureau/trash/* 2> /dev/null
-if [ $? -ne 0 ] ; then
+if [ $? -ne 0 ]; then
     echo répertoire trash vide;
 fi
