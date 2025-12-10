@@ -1,5 +1,5 @@
 #!/bin/bash
-# commande nomAddUser qui permet de créer des utilisateurs
+# commande addUser qui permet de créer des utilisateurs
 
 # Vérifie qu'il y a exactement un argument
 if [ $# -ne 1 ]; then
