@@ -41,7 +41,7 @@ for ((i = 1; i <= $nbLines+1; i++)); do
         # le -f permet de ne rien faire si le group existe déjà
         groupadd -f "$group"
         # le > /dev/null 2>&1 sert à redirigé le message d'erreur "le répertoire personnel /home existe déjà." (il se produit car l'utilisateur auras définit /home comme home pour l'utilisateur)
-        useradd -m -k "$repskel" -d "$rephome" -g "$group" "$user" > /dev/null 2>&1
+        useradd -m -k "$repskel" -d "$rephome/$user" -g "$group" "$user" > /dev/null 2>&1
         if [ $? = 0 ]; then
             # \033[32m avec le -e permet de mettre le texte en vert
             # et \033[0m permet de remettre la couleur blanche (sinon toutes les prochaines lignes serons en vert)
@@ -53,6 +53,8 @@ for ((i = 1; i <= $nbLines+1; i++)); do
             fi
 
             echo -e "alias e='emacs'\nalias w='wireshark'" >> $rephome/$user/.bashrc
+            # Ajouter le path /Scripts à la suite des path déjà présent dans le fichier .bashrc
+            echo -e 'export PATH=$PATH:/Scripts' >> $rephome/$user/.bashrc
             # Rendre les dossiers à l'utilisateur (sinon ils sont à root)
             chown -R "$user:$group" "$rephome/$user"
         else
