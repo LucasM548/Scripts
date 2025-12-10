@@ -19,6 +19,7 @@ fi
 
 # Vérifie que l'utilisateur à bien lancer le script en mode administrateur (avec un sudo avant)
 # Lorsque qu'on fait un sudo id -u, ça renvoie 0 car on à l'UID 0
+# Evite le $(whoami) = "root" car si un utilisateur s'appelle root, le script va fonctionner
 if [ $(id -u) -ne 0 ]; then
     echo -e "\033[31m====== Erreur : Le script doit être executé en mode administrateur (sudo) ======\033[0m"
     exit 3
