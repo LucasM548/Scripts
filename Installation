@@ -1,0 +1,22 @@
+#!/bin/bash
+groupadd testgroup
+adduser testuser
+adduser testuser testgroup
+apt update
+apt install emacs apache2 default-jdk
+apt install wireshark
+usermod -aG wireshark testuser
+chmod -R 755 /SAE/
+systemctl enable apache2
+systemctl start apache2
+mv /SAE/Notice/* /var/www/html/
+rm -d /SAE/Notice
+touch /var/log/date_install.log
+mv /SAE/install-log.path /etc/systemd/system/
+mv /SAE/install-log.service /etc/systemd/system/
+systemctl daemon-reload
+systemctl enable install-log.path
+systemctl start install-log.path
+mv /SAE/install-log /etc/logrotate.d/
+mv /SAE/date_install /etc/logrotate.d/
+bash /SAE/verifConfig
