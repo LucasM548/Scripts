@@ -1,0 +1,114 @@
+#!/bin/bash
+# commande verifConfig qui permet de créer des utilisateurs
+
+VERT="\033[32m"
+ROUGE="\033[31m"
+RESET="\033[0m"
+
+echo "Démarrage de la vérification de la configuration..."
+echo "---------------------------------------------------"
+
+# --- 1. Vérification Groupe et Utilisateur ---
+if getent group testgroup > /dev/null; then
+    echo -e "${VERT}===== Le groupe 'testgroup' existe =====${RESET}"
+else
+    echo -e "${ROUGE}===== ERREUR : Le groupe 'testgroup' est manquant =====${RESET}"
+fi
+
+if id "testuser" > /dev/null 2>&1; then
+    echo -e "${VERT}===== L'utilisateur 'testuser' existe =====${RESET}"
+    # -q pour le grep pour ne rien afficher
+    if groups testuser | grep -q "testgroup"; then
+        echo -e "${VERT}===== 'testuser' appartient bien au groupe 'testgroup' =====${RESET}"
+    else
+        echo -e "${ROUGE}===== ERREUR : 'testuser' n'est pas dans 'testgroup' =====${RESET}"
+    fi
+else
+    echo -e "${ROUGE}===== ERREUR : L'utilisateur 'testuser' est manquant =====${RESET}"
+fi
+
+# --- 2. Vérification des Logiciels ---
+echo "--- Vérification des paquets ---"
+for p in "emacs" "apache2" "wireshark" "git"; do
+    if dpkg -l | grep -q "^ii  $p"; then
+        echo -e "${VERT}===== Le logiciel '$p' est installé =====${RESET}"
+    else
+        echo -e "${ROUGE}===== ERREUR : Le logiciel '$p' n'est pas installé =====${RESET}"
+    fi
+done
+
+if command -v java > /dev/null 2>&1 && command -v javac > /dev/null 2>&1; then
+    echo -e "${VERT}===== Java et Javac sont installés =====${RESET}"
+else
+    echo -e "${ROUGE}===== ERREUR : Java ou Javac manquant =====${RESET}"
+fi
+
+# Vérification groupe Wireshark pour testuser
+if groups testuser | grep -q "wireshark"; then
+    echo -e "${VERT}===== 'testuser' appartient bien au groupe 'wireshark' =====${RESET}"
+else
+    echo -e "${ROUGE}===== ERREUR : 'testuser' n'a pas les droits wireshark =====${RESET}"
+fi
+
+# --- 3. Vérification Dossier /SAE et Permissions ---
+if [ -d "/SAE" ]; then
+    # vérifie si les permission de /SAE sont bien 755
+    if [ "$(stat -c "%a" /SAE)" == "755" ]; then
+        echo -e "${VERT}===== Le dossier /SAE existe avec les permissions 755 =====${RESET}"
+    else
+        echo -e "${ROUGE}===== ERREUR : /SAE existe mais permissions incorrectes ($PERM au lieu de 755) =====${RESET}"
+    fi
+else
+    echo -e "${ROUGE}===== ERREUR : Le dossier /SAE n'existe pas =====${RESET}"
+fi
+
+# --- 4. Vérification Script addUser ---
+if [ -f "/SAE/addUser" ]; then
+    echo -e "${VERT}===== Le script 'addUser' est présent =====${RESET}"
+else
+    echo -e "${ROUGE}===== ERREUR : Le script 'addUser' est introuvable =====${RESET}"
+fi
+
+# --- 5. Configuration Apache ---
+if systemctl is-active --quiet apache2; then
+    echo -e "${VERT}===== Le service Apache2 est actif =====${RESET}"
+else
+    echo -e "${ROUGE}===== ERREUR : Le service Apache2 n'est pas lancé =====${RESET}"
+fi
+
+# Vérifie si la notice a été déplacée (index.html ou fichiers présents)
+if ls /var/www/html/*.html > /dev/null 2>&1; then
+     echo -e "${VERT}===== Le site web (Notice) semble être en place dans /var/www/html =====${RESET}"
+else
+     echo -e "${ROUGE}===== ERREUR : Pas de fichiers HTML trouvés dans /var/www/html =====${RESET}"
+fi
+
+# --- 6. Logs et Services Systemd Custom ---
+# Fichiers de log
+if [ -f "/var/log/install.log" ] && [ -f "/var/log/date_install.log" ]; then
+    echo -e "${VERT}===== Les fichiers de logs (install.log et date_install.log) existent =====${RESET}"
+else
+    echo -e "${ROUGE}===== ERREUR : Un ou plusieurs fichiers de logs manquent =====${RESET}"
+fi
+
+# Service Path
+if [ -f "/etc/systemd/system/install-log.path" ]; then
+     echo -e "${VERT}===== Le fichier systemd 'install-log.path' est bien placé =====${RESET}"
+     if systemctl is-active --quiet install-log.path; then
+        echo -e "${VERT}===== Le service de surveillance 'install-log.path' est actif =====${RESET}"
+     else
+        echo -e "${ROUGE}===== ERREUR : Le service 'install-log.path' n'est pas actif =====${RESET}"
+     fi
+else
+     echo -e "${ROUGE}===== ERREUR : Le fichier 'install-log.path' n'est pas dans /etc/systemd/system/ =====${RESET}"
+fi
+
+# Logrotate
+if [ -f "/etc/logrotate.d/install-log" ] && [ -f "/etc/logrotate.d/date_install" ]; then
+    echo -e "${VERT}===== La configuration logrotate est présente =====${RESET}"
+else
+    echo -e "${ROUGE}===== ERREUR : Configuration logrotate manquante =====${RESET}"
+fi
+
+echo "---------------------------------------------------"
+echo "Vérification terminée."
