@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Notice de l'installation d'un poste de développement</title>
+<title>Notice Technique pour l'installation d'un poste de développement</title>
 <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
 
 <style>
@@ -434,7 +434,7 @@ code {
 </div></code></pre>
 <!-- Capture d'écran suggérée : Résultat de l'installation de git -->
 <p>Clonage du dépôt :</p>
-<pre class="hljs"><code><div>git <span class="hljs-built_in">clone</span> https://github.com/LucasM548/SAE-S1-3.git /SAE
+<pre class="hljs"><code><div><span class="hljs-built_in">sudo</span> git <span class="hljs-built_in">clone</span> https://github.com/LucasM548/SAE-S1-3.git /SAE
 </div></code></pre>
 <p><em>Note :</em> Le dépôt contient tous les <strong>scripts</strong>, mais également des <strong>fichiers de configuration</strong> et des <strong>services systemd</strong> <em>(qui seront nécessaire lors de la suite de la configuration)</em>.</p>
 <!-- Capture d'écran suggérée : Terminal après le clonage du dépôt -->
@@ -448,7 +448,6 @@ code {
 <li>Groupe/Autres : Lecture, Exécution (5)
 Cela permet aux utilisateurs d'exécuter les scripts (<code>srm</code>, <code>lkt</code>, etc.) sans pouvoir les modifier.</li>
 </ul>
-<!-- Capture d'écran suggérée : Résultat de la commande chmod sur le dossier /SAE -->
 <hr>
 <h2 id="4-script-dautomatisation-de-cr%C3%A9ation-dutilisateurs">4. Script d'automatisation de création d'utilisateurs</h2>
 <p>Le script nommé <code>addUser</code> disponible dans le dossier <code>/SAE</code> permet la création d'utilisateurs à partir d'un fichier de configuration.</p>
@@ -660,7 +659,11 @@ ExecStart=/bin/bash -c &#x27;date &gt;&gt; /var/log/date_install.log&#x27;
 <li>Un Script <code>addUser</code> qui permet de créer des utilisateurs.</li>
 <li>Un serveur web hébergeant cette notice.</li>
 <li>Un système de surveillance et de rotation des logs de <code>addUser</code>.</li>
+<li>Vous pouvez lancer ce script pour vérifier que tout est bien installer :</li>
 </ul>
-
+<pre class="hljs"><code><div><span class="hljs-built_in">sudo</span> bash /SAE/verifConfig
+</div></code></pre>
+<p><em>Note :</em> Ce script vérifie la présence des logiciels, des utilisateurs, des services systemd et des configurations de logrotate.</p>
+<!-- Capture d'écran suggérée : Résultat de l'exécution du script verifConfig -->
 </body>
 </html>
