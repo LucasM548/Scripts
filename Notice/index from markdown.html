@@ -1,480 +1,469 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-	<title>Notice d'installation d'un poste de développement</title>
-	<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>Notice de l'installation d'un poste de développement</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
 
-	<style>
-		/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
-		/*---------------------------------------------------------------------------------------------
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
  *  Copyright (c) Microsoft Corporation. All rights reserved.
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-		body {
-			font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
-			font-size: var(--vscode-markdown-font-size, 14px);
-			padding: 0 26px;
-			line-height: var(--vscode-markdown-line-height, 22px);
-			word-wrap: break-word;
-		}
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
 
-		#code-csp-warning {
-			position: fixed;
-			top: 0;
-			right: 0;
-			color: white;
-			margin: 16px;
-			text-align: center;
-			font-size: 12px;
-			font-family: sans-serif;
-			background-color: #444444;
-			cursor: pointer;
-			padding: 6px;
-			box-shadow: 1px 1px 1px rgba(0, 0, 0, .25);
-		}
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
 
-		#code-csp-warning:hover {
-			text-decoration: none;
-			background-color: #007acc;
-			box-shadow: 2px 2px 2px rgba(0, 0, 0, .25);
-		}
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
 
-		body.scrollBeyondLastLine {
-			margin-bottom: calc(100vh - 22px);
-		}
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
 
-		body.showEditorSelection .code-line {
-			position: relative;
-		}
+body.showEditorSelection .code-line {
+	position: relative;
+}
 
-		body.showEditorSelection .code-active-line:before,
-		body.showEditorSelection .code-line:hover:before {
-			content: "";
-			display: block;
-			position: absolute;
-			top: 0;
-			left: -12px;
-			height: 100%;
-		}
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
 
-		body.showEditorSelection li.code-active-line:before,
-		body.showEditorSelection li.code-line:hover:before {
-			left: -30px;
-		}
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
 
-		.vscode-light.showEditorSelection .code-active-line:before {
-			border-left: 3px solid rgba(0, 0, 0, 0.15);
-		}
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
 
-		.vscode-light.showEditorSelection .code-line:hover:before {
-			border-left: 3px solid rgba(0, 0, 0, 0.40);
-		}
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
 
-		.vscode-light.showEditorSelection .code-line .code-line:hover:before {
-			border-left: none;
-		}
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
 
-		.vscode-dark.showEditorSelection .code-active-line:before {
-			border-left: 3px solid rgba(255, 255, 255, 0.4);
-		}
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
 
-		.vscode-dark.showEditorSelection .code-line:hover:before {
-			border-left: 3px solid rgba(255, 255, 255, 0.60);
-		}
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
 
-		.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
-			border-left: none;
-		}
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
 
-		.vscode-high-contrast.showEditorSelection .code-active-line:before {
-			border-left: 3px solid rgba(255, 160, 0, 0.7);
-		}
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
 
-		.vscode-high-contrast.showEditorSelection .code-line:hover:before {
-			border-left: 3px solid rgba(255, 160, 0, 1);
-		}
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
 
-		.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
-			border-left: none;
-		}
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
 
-		img {
-			max-width: 100%;
-			max-height: 100%;
-		}
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
 
-		a {
-			text-decoration: none;
-		}
+a {
+	text-decoration: none;
+}
 
-		a:hover {
-			text-decoration: underline;
-		}
+a:hover {
+	text-decoration: underline;
+}
 
-		a:focus,
-		input:focus,
-		select:focus,
-		textarea:focus {
-			outline: 1px solid -webkit-focus-ring-color;
-			outline-offset: -1px;
-		}
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
 
-		hr {
-			border: 0;
-			height: 2px;
-			border-bottom: 2px solid;
-		}
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
 
-		h1 {
-			padding-bottom: 0.3em;
-			line-height: 1.2;
-			border-bottom-width: 1px;
-			border-bottom-style: solid;
-		}
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
 
-		h1,
-		h2,
-		h3 {
-			font-weight: normal;
-		}
+h1, h2, h3 {
+	font-weight: normal;
+}
 
-		table {
-			border-collapse: collapse;
-		}
+table {
+	border-collapse: collapse;
+}
 
-		table>thead>tr>th {
-			text-align: left;
-			border-bottom: 1px solid;
-		}
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
 
-		table>thead>tr>th,
-		table>thead>tr>td,
-		table>tbody>tr>th,
-		table>tbody>tr>td {
-			padding: 5px 10px;
-		}
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
 
-		table>tbody>tr+tr>td {
-			border-top: 1px solid;
-		}
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
 
-		blockquote {
-			margin: 0 7px 0 5px;
-			padding: 0 16px 0 10px;
-			border-left-width: 5px;
-			border-left-style: solid;
-		}
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
 
-		code {
-			font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
-			font-size: 1em;
-			line-height: 1.357em;
-		}
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
 
-		body.wordWrap pre {
-			white-space: pre-wrap;
-		}
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
 
-		pre:not(.hljs),
-		pre.hljs code>div {
-			padding: 16px;
-			border-radius: 3px;
-			overflow: auto;
-		}
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
 
-		pre code {
-			color: var(--vscode-editor-foreground);
-			tab-size: 4;
-		}
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
 
-		/** Theming */
+/** Theming */
 
-		.vscode-light pre {
-			background-color: rgba(220, 220, 220, 0.4);
-		}
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
 
-		.vscode-dark pre {
-			background-color: rgba(10, 10, 10, 0.4);
-		}
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
 
-		.vscode-high-contrast pre {
-			background-color: rgb(0, 0, 0);
-		}
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
 
-		.vscode-high-contrast h1 {
-			border-color: rgb(0, 0, 0);
-		}
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
 
-		.vscode-light table>thead>tr>th {
-			border-color: rgba(0, 0, 0, 0.69);
-		}
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
 
-		.vscode-dark table>thead>tr>th {
-			border-color: rgba(255, 255, 255, 0.69);
-		}
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
 
-		.vscode-light h1,
-		.vscode-light hr,
-		.vscode-light table>tbody>tr+tr>td {
-			border-color: rgba(0, 0, 0, 0.18);
-		}
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
 
-		.vscode-dark h1,
-		.vscode-dark hr,
-		.vscode-dark table>tbody>tr+tr>td {
-			border-color: rgba(255, 255, 255, 0.18);
-		}
-	</style>
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
 
-	<style>
-		/* Tomorrow Theme */
-		/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
-		/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+</style>
 
-		/* Tomorrow Comment */
-		.hljs-comment,
-		.hljs-quote {
-			color: #8e908c;
-		}
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
 
-		/* Tomorrow Red */
-		.hljs-variable,
-		.hljs-template-variable,
-		.hljs-tag,
-		.hljs-name,
-		.hljs-selector-id,
-		.hljs-selector-class,
-		.hljs-regexp,
-		.hljs-deletion {
-			color: #c82829;
-		}
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
 
-		/* Tomorrow Orange */
-		.hljs-number,
-		.hljs-built_in,
-		.hljs-builtin-name,
-		.hljs-literal,
-		.hljs-type,
-		.hljs-params,
-		.hljs-meta,
-		.hljs-link {
-			color: #f5871f;
-		}
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
 
-		/* Tomorrow Yellow */
-		.hljs-attribute {
-			color: #eab700;
-		}
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
 
-		/* Tomorrow Green */
-		.hljs-string,
-		.hljs-symbol,
-		.hljs-bullet,
-		.hljs-addition {
-			color: #718c00;
-		}
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
 
-		/* Tomorrow Blue */
-		.hljs-title,
-		.hljs-section {
-			color: #4271ae;
-		}
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
 
-		/* Tomorrow Purple */
-		.hljs-keyword,
-		.hljs-selector-tag {
-			color: #8959a8;
-		}
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
 
-		.hljs {
-			display: block;
-			overflow-x: auto;
-			color: #4d4d4c;
-			padding: 0.5em;
-		}
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
 
-		.hljs-emphasis {
-			font-style: italic;
-		}
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
 
-		.hljs-strong {
-			font-weight: bold;
-		}
-	</style>
+.hljs-emphasis {
+	font-style: italic;
+}
 
-	<style>
-		/*
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
  * Markdown PDF CSS
  */
 
-		body {
-			font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
-			padding: 0 12px;
-		}
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
 
-		pre {
-			background-color: #f8f8f8;
-			border: 1px solid #cccccc;
-			border-radius: 3px;
-			overflow-x: auto;
-			white-space: pre-wrap;
-			overflow-wrap: break-word;
-		}
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
 
-		pre:not(.hljs) {
-			padding: 23px;
-			line-height: 19px;
-		}
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
 
-		blockquote {
-			background: rgba(127, 127, 127, 0.1);
-			border-color: rgba(0, 122, 204, 0.5);
-		}
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
 
-		.emoji {
-			height: 1.4em;
-		}
+.emoji {
+	height: 1.4em;
+}
 
-		code {
-			font-size: 14px;
-			line-height: 19px;
-		}
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
 
-		/* for inline code */
-		:not(pre):not(.hljs)>code {
-			color: #C9AE75;
-			/* Change the old color so it seems less like an error */
-			font-size: inherit;
-		}
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
 
-		/* Page Break : use <div class="page"/> to insert page break
+/* Page Break : use <div class="page"/> to insert page break
 -------------------------------------------------------- */
-		.page {
-			page-break-after: always;
-		}
-	</style>
+.page {
+	page-break-after: always;
+}
 
-	<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
 </head>
-
 <body>
-	<script>
-		mermaid.initialize({
-			startOnLoad: true,
-			theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
-				? 'dark'
-				: 'default'
-		});
-	</script>
-	<h1 id="notice-technique---configuration-dun-poste-de-d%C3%A9veloppement">Notice Technique - Configuration d'un
-		poste de développement</h1>
-	<p>MARTINATI Lucas - CHARLES SAMUEL</p>
-	<hr>
-	<p>Bonjour, voici la notice détaillée pas à pas pour la configuration d'un poste de développement. Il vous faudra un
-		ordinateur sous Ubuntu 22.04.</p>
-	<h2 id="table-des-mati%C3%A8res">Table des matières</h2>
-	<ul>
-		<li><a href="#1-cr%C3%A9ation-du-groupe-et-de-lutilisateur">1. Création du groupe et de l'utilisateur</a></li>
-		<li><a href="#2-installation-des-logiciels">2. Installation des Logiciels</a></li>
-		<li><a href="#3-installation-et-configuration-des-scripts">3. Installation et Configuration des Scripts</a></li>
-		<li><a href="#4-script-dautomatisation-de-cr%C3%A9ation-dutilisateurs">4. Script d'Automatisation de Création
-				d'Utilisateurs</a></li>
-		<li><a href="#5-configuration-des-services-systemd">5. Configuration des Services Systemd</a></li>
-		<li><a href="#6-rotation-des-logs-logrotate">6. Rotation des Logs (Logrotate)</a></li>
-		<li><a href="#7-terminer">7. Terminer</a></li>
-	</ul>
-	<h2 id="1-cr%C3%A9ation-du-groupe-et-de-lutilisateur">1. Création du groupe et de l'utilisateur</h2>
-	<p>Commandes à effectuer pour créer un groupe testgroup et un utilisateur testuser :</p>
-	<pre class="hljs"><code><div><span class="hljs-built_in">sudo</span> groupadd testgroup
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="notice-technique---configuration-dun-poste-de-d%C3%A9veloppement">Notice Technique - Configuration d'un poste de développement</h1>
+<p>MARTINATI Lucas - CHARLES SAMUEL</p>
+<hr>
+<p>Bonjour, voici la notice détaillée pas à pas pour la configuration d'un poste de développement. Il vous faudra un ordinateur sous Ubuntu 22.04.</p>
+<h2 id="table-des-mati%C3%A8res">Table des matières</h2>
+<ul>
+<li><a href="#1-cr%C3%A9ation-du-groupe-et-de-lutilisateur">1. Création du groupe et de l'utilisateur</a></li>
+<li><a href="#2-installation-des-logiciels">2. Installation des Logiciels</a></li>
+<li><a href="#3-installation-et-configuration-des-scripts">3. Installation et Configuration des Scripts</a></li>
+<li><a href="#4-script-dautomatisation-de-cr%C3%A9ation-dutilisateurs">4. Script d'Automatisation de Création d'Utilisateurs</a></li>
+<li><a href="#5-configuration-des-services-systemd">5. Configuration des Services Systemd</a></li>
+<li><a href="#6-rotation-des-logs-logrotate">6. Rotation des Logs (Logrotate)</a></li>
+<li><a href="#7-terminer">7. Terminer</a></li>
+</ul>
+<h2 id="1-cr%C3%A9ation-du-groupe-et-de-lutilisateur">1. Création du groupe et de l'utilisateur</h2>
+<p>Commandes à effectuer pour créer un groupe testgroup et un utilisateur testuser :</p>
+<pre class="hljs"><code><div><span class="hljs-built_in">sudo</span> groupadd testgroup
 <span class="hljs-built_in">sudo</span> adduser testuser
 </div></code></pre>
-	<p>Lors de la création de <code>testuser</code>, les informations suivantes vous seront demandées :</p>
-	<ul>
-		<li><strong>Mot de passe</strong> sécurisé (min. 8 caractères, non palindrome).</li>
-		<li><strong>Répéter votre mot de passe</strong>.</li>
-		<li><strong>Votre nom</strong> <em>(optionnel)</em>.</li>
-		<li><strong>Votre numéro de chambre</strong> <em>(optionnel)</em>.</li>
-		<li><strong>Votre numéro de téléphone professionnel</strong> <em>(optionnel)</em>.</li>
-		<li><strong>Votre numéro de téléphone personnel</strong> <em>(optionnel)</em>.</li>
-		<li><strong>Une autre information</strong> <em>(optionnelle)</em>.</li>
-	</ul>
-	<p>L'ajout de <code>testuser</code> au groupe <code>testgroup</code> :</p>
-	<pre class="hljs"><code><div><span class="hljs-built_in">sudo</span> usermod -aG testgroup testuser
+<!-- Capture d'écran suggérée : Terminal après l'exécution des commandes de création de groupe et d'utilisateur -->
+<p>Lors de la création de <code>testuser</code>, les informations suivantes vous seront demandées :</p>
+<ul>
+<li><strong>Mot de passe</strong> sécurisé (min. 8 caractères, pas un palindrome).</li>
+<li><strong>Répéter votre mot de passe</strong>.</li>
+<li><strong>Votre nom</strong> <em>(optionnel)</em>.</li>
+<li><strong>Votre numéro de chambre</strong> <em>(optionnel)</em>.</li>
+<li><strong>Votre numéro de téléphone professionnel</strong> <em>(optionnel)</em>.</li>
+<li><strong>Votre numéro de téléphone personnel</strong> <em>(optionnel)</em>.</li>
+<li><strong>Une autre information</strong> <em>(optionnelle)</em>.</li>
+<li><strong>Confirmer les informations</strong> en tapant <code>y</code> (ou <code>O</code> en français).</li>
+</ul>
+<p>L'ajout de <code>testuser</code> au groupe <code>testgroup</code> :</p>
+<pre class="hljs"><code><div><span class="hljs-built_in">sudo</span> adduser testuser testgroup
 </div></code></pre>
-	<h2 id="2-installation-des-logiciels">2. Installation des logiciels</h2>
-	<p>Vous devez installer un ensemble de logiciels requis :</p>
-	<p>Avant toute installation, il faut mettre à jour la liste des paquets :</p>
-	<pre class="hljs"><code><div><span class="hljs-built_in">sudo</span> apt update
+<!-- Capture d'écran suggérée : Confirmation dans le terminal après l'ajout de l'utilisateur au groupe -->
+<h2 id="2-installation-des-logiciels">2. Installation des logiciels</h2>
+<p>Vous devez installer un ensemble de logiciels requis :</p>
+<p>Avant toute installation, il faut mettre à jour la liste des paquets :</p>
+<pre class="hljs"><code><div><span class="hljs-built_in">sudo</span> apt update
 </div></code></pre>
-	<hr>
-	<p>Installation de <code>emacs</code> et de <code>apache2</code> :</p>
-	<pre class="hljs"><code><div><span class="hljs-built_in">sudo</span> apt install emacs apache2
+<!-- Capture d'écran suggérée : Résultat de la commande sudo apt update (mise à jour des paquets) -->
+<hr>
+<p>Installation de <code>emacs</code>, <code>apache2</code>, <code>java</code> et <code>javac</code> :</p>
+<pre class="hljs"><code><div><span class="hljs-built_in">sudo</span> apt install emacs apache2 default-jdk
 </div></code></pre>
-	<p>Installation de <code>wireshark</code> :</p>
-	<pre class="hljs"><code><div><span class="hljs-built_in">sudo</span> apt install wireshark
+<!-- Capture d'écran suggérée : Résultat de l'installation de emacs et apache2 dans le terminal -->
+<p>Installation de <code>wireshark</code> :</p>
+<pre class="hljs"><code><div><span class="hljs-built_in">sudo</span> apt install wireshark
 </div></code></pre>
-	<p>Lors de l'installation, une boîte de dialogue demande si les non-superutilisateurs doivent être autorisés à
-		capturer des paquets. Vous devez répondre <strong>OUI</strong>.</p>
-	<p>Vérification que le groupe <code>wireshark</code> a bien été créé :</p>
-	<pre class="hljs"><code><div>getent group wireshark
+<p>Lors de l'installation, une boîte de dialogue demande si les non-superutilisateurs doivent être autorisés à capturer des paquets. Vous devez répondre <strong>OUI</strong>.</p>
+<!-- Capture d'écran suggérée : Boîte de dialogue demandant l'autorisation pour les non-superutilisateurs -->
+<p>Vérification que le groupe <code>wireshark</code> a bien été créé :</p>
+<pre class="hljs"><code><div>getent group wireshark
 </div></code></pre>
-	<p>Ajout de <code>testuser</code> au groupe <code>wireshark</code> :</p>
-	<pre class="hljs"><code><div><span class="hljs-built_in">sudo</span> usermod -aG wireshark testuser
+<!-- Capture d'écran suggérée : Résultat de la commande getent group wireshark -->
+<p>Ajout de <code>testuser</code> au groupe <code>wireshark</code> :</p>
+<pre class="hljs"><code><div><span class="hljs-built_in">sudo</span> usermod -aG wireshark testuser
 </div></code></pre>
-	<p><em>Justification :</em> Cette configuration permet à <code>testuser</code> d'effectuer des captures sans avoir
-		besoin des droits <code>root</code> (sudo). La commande <code>usermod -aG</code> ajoute le groupe
-		<code>wireshark</code> à <code>testuser</code> sans supprimer les groupes de <code>testuser</code> existants.
-		(-a : append, -G : group)
-	</p>
-	<hr>
-	<p>Installation de <code>javac</code> et <code>java</code> :</p>
-	<pre class="hljs"><code><div><span class="hljs-built_in">sudo</span> apt install default-jdk
+<p><em>Justification :</em> Cette configuration permet à <code>testuser</code> d'effectuer des captures sans avoir besoin des droits <code>root</code> (sudo). La commande <code>usermod -aG</code> ajoute le groupe <code>wireshark</code> à <code>testuser</code> sans supprimer les groupes de <code>testuser</code> existants. (-a : append, -G : group)</p>
+<p><em>Note :</em> Sous Debian, vous pouvez simplement utiliser sudo <code>adduser testuser wireshark</code>. Toutefois, la commande <code>usermod</code> est présentée ici car elle fonctionne sur toutes les distributions Linux.</p>
+<!-- Capture d'écran suggérée : Confirmation dans le terminal après l'ajout au groupe wireshark -->
+<h2 id="3-installation-et-configuration-des-scripts">3. Installation et configuration des scripts</h2>
+<p>Pour la gestion des scripts, il faut récupérer les fichiers depuis un dépôt Git.</p>
+<h3 id="r%C3%A9cup%C3%A9ration-des-scripts">Récupération des scripts</h3>
+<p>Installation de <strong>git</strong> :</p>
+<pre class="hljs"><code><div><span class="hljs-built_in">sudo</span> apt install git
 </div></code></pre>
-	<h2 id="3-installation-et-configuration-des-scripts">3. Installation et configuration des scripts</h2>
-	<p>Pour la gestion des scripts, il faut récupérer les fichiers depuis un dépôt Git.</p>
-	<h3 id="r%C3%A9cup%C3%A9ration-des-scripts">Récupération des scripts</h3>
-	<p>Installation de <strong>git</strong> :</p>
-	<pre class="hljs"><code><div><span class="hljs-built_in">sudo</span> apt install git
+<!-- Capture d'écran suggérée : Résultat de l'installation de git -->
+<p>Clonage du dépôt :</p>
+<pre class="hljs"><code><div>git <span class="hljs-built_in">clone</span> https://github.com/LucasM548/SAE-S1-3.git /SAE
 </div></code></pre>
-	<p>Clonage du dépôt :</p>
-	<pre class="hljs"><code><div>git <span class="hljs-built_in">clone</span> https://github.com/LucasM548/SAE-S1-3.git /SAE
+<p><em>Note :</em> Le dépôt contient tous les <strong>scripts</strong>, mais également des <strong>fichiers de configuration</strong> et des <strong>services systemd</strong> <em>(qui seront nécessaire lors de la suite de la configuration)</em>.</p>
+<!-- Capture d'écran suggérée : Terminal après le clonage du dépôt -->
+<h3 id="permissions">Permissions</h3>
+<p>Donner les droits d'exécution et de lecture appropriés au dossier <code>/SAE</code> pour qu'il soit accessible par tous les utilisateurs, mais modifiable uniquement par <code>root</code>.</p>
+<pre class="hljs"><code><div><span class="hljs-built_in">sudo</span> <span class="hljs-built_in">chmod</span> -R 755 /SAE/
 </div></code></pre>
-	<h3 id="permissions">Permissions</h3>
-	<p>Donner les droits d'exécution et de lecture appropriés au dossier <code>/SAE</code> pour qu'il soit accessible
-		par tous les utilisateurs, mais modifiable uniquement par <code>root</code>.</p>
-	<pre class="hljs"><code><div><span class="hljs-built_in">sudo</span> <span class="hljs-built_in">chmod</span> -R 755 /SAE/
-</div></code></pre>
-	<p><em>Choix des droits 755 :</em></p>
-	<ul>
-		<li>Propriétaire (root) : Lecture, Écriture, Exécution (7)</li>
-		<li>Groupe/Autres : Lecture, Exécution (5)
-			Cela permet aux utilisateurs d'exécuter les scripts (<code>srm</code>, <code>lkt</code>, etc.) sans pouvoir
-			les modifier.</li>
-	</ul>
-	<hr>
-	<h2 id="4-script-dautomatisation-de-cr%C3%A9ation-dutilisateurs">4. Script d'automatisation de création
-		d'utilisateurs</h2>
-	<p>Le script nommé <code>addUser</code> disponible dans le dossier <code>/SAE</code> permet la création
-		d'utilisateurs à partir d'un fichier de configuration.</p>
-	<h3 id="fonctionnement-du-script">Fonctionnement du script</h3>
-	<p>Le script lit un fichier <code>config.txt</code> ligne par ligne. Pour chaque ligne
-		(<code>login,group,homedir,skeldir</code>), il effectue les actions suivantes :</p>
-	<ol>
-		<li>Création de l'utilisateur avec <code>useradd</code>.</li>
-		<li>Configuration du répertoire personnel (home) avec les sous-dossiers <code>Documents</code> et
-			<code>Downloads</code>.
-		</li>
-		<li>Configuration du fichier <code>.bashrc</code> pour inclure le chemin des scripts (<code>/SAE</code>) dans le
-			<code>PATH</code>.
-		</li>
-		<li>Création des alias <code>e</code> pour <code>emacs</code> et <code>w</code> pour <code>wireshark</code>.
-		</li>
-		<li>Enregistrement des opérations dans <code>/var/log/install.log</code>.</li>
-	</ol>
-	<p>Le script <code>addUser</code> :</p>
-	<pre class="hljs"><code><div><span class="hljs-meta">#!/bin/bash</span>
+<p><em>Choix des droits 755 :</em></p>
+<ul>
+<li>Propriétaire (root) : Lecture, Écriture, Exécution (7)</li>
+<li>Groupe/Autres : Lecture, Exécution (5)
+Cela permet aux utilisateurs d'exécuter les scripts (<code>srm</code>, <code>lkt</code>, etc.) sans pouvoir les modifier.</li>
+</ul>
+<!-- Capture d'écran suggérée : Résultat de la commande chmod sur le dossier /SAE -->
+<hr>
+<h2 id="4-script-dautomatisation-de-cr%C3%A9ation-dutilisateurs">4. Script d'automatisation de création d'utilisateurs</h2>
+<p>Le script nommé <code>addUser</code> disponible dans le dossier <code>/SAE</code> permet la création d'utilisateurs à partir d'un fichier de configuration.</p>
+<h3 id="fonctionnement-du-script">Fonctionnement du script</h3>
+<p>Le script lit un fichier <code>config.txt</code> ligne par ligne. Pour chaque ligne (<code>login,group,homedir,skeldir</code>), il effectue les actions suivantes :</p>
+<ol>
+<li>Création de l'utilisateur avec <code>useradd</code>.</li>
+<li>Configuration du répertoire personnel (home) avec les sous-dossiers <code>Documents</code> et <code>Downloads</code>.</li>
+<li>Configuration du fichier <code>.bashrc</code> pour inclure le chemin des scripts (<code>/SAE</code>) dans le <code>PATH</code>.</li>
+<li>Création des alias <code>e</code> pour <code>emacs</code> et <code>w</code> pour <code>wireshark</code>.</li>
+<li>Enregistrement des opérations dans <code>/var/log/install.log</code>.</li>
+</ol>
+<p><em>Note :</em> Un script <code>removeUser</code> est également disponible pour supprimer les utilisateurs et les groupes contenu dans le même fichier <code>config.txt</code>.</p>
+<p>Le script <code>addUser</code> :</p>
+<pre class="hljs"><code><div><span class="hljs-meta">#!/bin/bash</span>
 <span class="hljs-comment"># commande addUser qui permet de créer des utilisateurs</span>
 
 <span class="hljs-comment"># Vérifie qu&#x27;il y a exactement un argument</span>
@@ -554,57 +543,55 @@ nbLines=$(<span class="hljs-built_in">wc</span> -l &lt; <span class="hljs-string
     <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;================================================&quot;</span> &gt;&gt; <span class="hljs-variable">$log</span>
 <span class="hljs-keyword">done</span>
 </div></code></pre>
-	<h3 id="ex%C3%A9cution">Exécution</h3>
-	<p>Exemple de commande utilisée :</p>
-	<pre class="hljs"><code><div><span class="hljs-built_in">sudo</span> bash /SAE/addUser /SAE/config.txt
+<h3 id="ex%C3%A9cution">Exécution</h3>
+<p>Exemple de commande utilisée :</p>
+<pre class="hljs"><code><div><span class="hljs-built_in">sudo</span> bash /SAE/addUser /SAE/config.txt
 </div></code></pre>
-	<p><em>Extrait du fichier de configuration (<code>config.txt</code>) :</em></p>
-	<pre class="hljs"><code><div>u1, g1, /home, /etc/skel/
+<p><em>Extrait du fichier de configuration (<code>config.txt</code>) :</em></p>
+<pre class="hljs"><code><div>u1, g1, /home, /etc/skel/
 u2, g1, /home, /etc/skel/
 </div></code></pre>
-	<p><em>Note :</em> Remplir le contenu de config.txt avec les utilisateurs que vous voulez créer.</p>
-	<h2 id="5-configuration-des-services-systemd">5. Configuration des Services Systemd</h2>
-	<p>Vous devez configuré plusieurs services pour qu'ils se lancent automatiquement au démarrage.</p>
-	<h3 id="serveur-apache2">Serveur Apache2</h3>
-	<p>Activation et lancement du service :</p>
-	<pre class="hljs"><code><div><span class="hljs-built_in">sudo</span> systemctl <span class="hljs-built_in">enable</span> apache2
+<p><em>Note :</em> Remplir le contenu de config.txt avec les utilisateurs que vous voulez créer.</p>
+<!-- Capture d'écran suggérée : Résultat de l'exécution du script addUser avec un exemple d'utilisateur créé -->
+<h2 id="5-configuration-des-services-systemd">5. Configuration des Services Systemd</h2>
+<p>Vous devez configurer plusieurs services pour qu'ils se lancent automatiquement au démarrage.</p>
+<h3 id="serveur-apache2">Serveur Apache2</h3>
+<p>Activation et lancement du service :</p>
+<pre class="hljs"><code><div><span class="hljs-built_in">sudo</span> systemctl <span class="hljs-built_in">enable</span> apache2
 <span class="hljs-built_in">sudo</span> systemctl start apache2
 </div></code></pre>
-	<p><em>Explication :</em> <code>enable</code> crée les liens symboliques nécessaires pour que systemd lance le
-		service à chaque démarrage. <code>start</code> lance le service immédiatement sans attendre le redémarrage.</p>
-	<p>Accès à la Notive version web : Le site avec la notice est déplacé vers la racine du serveur web
-		(<code>/var/www/html</code>) pour qu'il soit accessible via <code>http://127.0.0.1</code>.</p>
-	<pre class="hljs"><code><div><span class="hljs-built_in">sudo</span> <span class="hljs-built_in">mv</span> /SAE/Notice/* /var/www/html/
+<p><em>Explication :</em> <code>enable</code> crée les liens symboliques nécessaires pour que systemd lance le service à chaque démarrage. <code>start</code> lance le service immédiatement sans attendre le redémarrage.</p>
+<!-- Capture d'écran suggérée : Résultat des commandes systemctl enable/start apache2 -->
+<p>Accès à la Notive version web : Le site avec la notice est déplacé vers la racine du serveur web (<code>/var/www/html</code>) pour qu'il soit accessible via <code>http://127.0.0.1</code>.</p>
+<pre class="hljs"><code><div><span class="hljs-built_in">sudo</span> <span class="hljs-built_in">mv</span> /SAE/Notice/* /var/www/html/
 <span class="hljs-built_in">sudo</span> <span class="hljs-built_in">rm</span> -d /SAE/Notice
 </div></code></pre>
-	<p><em>Justification :</em> <code>Apache2</code> va automatiquement chercher dans <code>/var/www/html/</code>, on va
-		donc ajouter l’index.html de nôtre notice directement à cette adresse.</p>
-	<h3 id="service-de-surveillance-des-logs">Service de Surveillance des Logs</h3>
-	<p>Un service est mis en place pour surveiller les modifications du fichier <code>/var/log/install.log</code> et
-		enregistrer la date de modification dans <code>/var/log/date_install.log</code>.</p>
-	<p>Création du fichier de log <code>date_install.log</code> :</p>
-	<pre class="hljs"><code><div><span class="hljs-built_in">sudo</span> <span class="hljs-built_in">touch</span> /var/log/date_install.log
+<p><em>Justification :</em> <code>Apache2</code> va automatiquement chercher dans <code>/var/www/html/</code> un fichier <code>index.html</code>, on a donc ajouté l’index.html de notre notice directement à cette adresse.</p>
+<!-- Capture d'écran suggérée : Affichage de la notice dans un navigateur web à l'adresse http://127.0.0.1 -->
+<h2 id="6-rotation-des-logs-logrotate">6. Rotation des Logs (Logrotate)</h2>
+<p>Un service est mis en place pour surveiller les modifications du fichier <code>/var/log/install.log</code> et enregistrer la date de modification dans <code>/var/log/date_install.log</code>.</p>
+<p>Création du fichier de log <code>date_install.log</code> :</p>
+<pre class="hljs"><code><div><span class="hljs-built_in">sudo</span> <span class="hljs-built_in">touch</span> /var/log/date_install.log
 </div></code></pre>
-	<p>Déplacement des fichiers de définition systemd (<code>.path</code> et <code>.service</code>) vers
-		<code>/etc/systemd/system/</code> :
-	</p>
-	<pre class="hljs"><code><div><span class="hljs-built_in">sudo</span> <span class="hljs-built_in">mv</span> /SAE/install-log.path /etc/systemd/system/
+<!-- Capture d'écran suggérée : Résultat de la commande touch pour créer le fichier de log -->
+<p>Déplacement des fichiers de définition systemd (<code>.path</code> et <code>.service</code>) vers <code>/etc/systemd/system/</code> :</p>
+<pre class="hljs"><code><div><span class="hljs-built_in">sudo</span> <span class="hljs-built_in">mv</span> /SAE/install-log.path /etc/systemd/system/
 <span class="hljs-built_in">sudo</span> <span class="hljs-built_in">mv</span> /SAE/install-log.service /etc/systemd/system/
 </div></code></pre>
-	<p>Activation du service :</p>
-	<pre class="hljs"><code><div><span class="hljs-built_in">sudo</span> systemctl daemon-reload
+<!-- Capture d'écran suggérée : Résultat du déplacement des fichiers dans le terminal -->
+<p>Activation du service :</p>
+<pre class="hljs"><code><div><span class="hljs-built_in">sudo</span> systemctl daemon-reload
 <span class="hljs-built_in">sudo</span> systemctl <span class="hljs-built_in">enable</span> install-log.path
 <span class="hljs-built_in">sudo</span> systemctl start install-log.path
 </div></code></pre>
-	<p><em>Justification :</em></p>
-	<ul>
-		<li><code>daemon-reload</code> : Permet à systemd de recharger les services et de prendre en compte les nouveaux
-			fichiers ajoutés.</li>
-		<li><code>install-log.path</code> : Ce service &quot;path&quot; surveille le fichier et déclenche le service
-			associé (<code>install-log.service</code>) lors le fichier <code>install.log</code> est modifié.</li>
-	</ul>
-	<h3 id="le-contenu-de-install-logpath">Le contenu de install-log.path :</h3>
-	<pre class="hljs"><code><div>[Unit]
+<p><em>Justification :</em></p>
+<ul>
+<li><code>daemon-reload</code> : Permet à systemd de recharger les services et de prendre en compte les nouveaux fichiers ajoutés.</li>
+<li><code>install-log.path</code> : Ce service &quot;path&quot; surveille le fichier et déclenche le service associé (<code>install-log.service</code>) lorsque le fichier <code>install.log</code> est modifié.</li>
+</ul>
+<!-- Capture d'écran suggérée : Résultat des commandes systemctl daemon-reload/enable/start install-log.path -->
+<h3 id="le-contenu-de-install-logpath">Le contenu de install-log.path :</h3>
+<pre class="hljs"><code><div>[Unit]
 Description=Surveille les modifications de install.log
 
 [Path]
@@ -617,8 +604,8 @@ Unit=install-log.service
 # Active le chemin lors du démarrage du système
 WantedBy=multi-user.target
 </div></code></pre>
-	<h3 id="le-contenu-de-install-logservice">Le contenu de install-log.service :</h3>
-	<pre class="hljs"><code><div>[Unit]
+<h3 id="le-contenu-de-install-logservice">Le contenu de install-log.service :</h3>
+<pre class="hljs"><code><div>[Unit]
 Description=Ajoute la date dans date_install.log
 
 [Service]
@@ -627,22 +614,22 @@ Type=oneshot
 # Lorsque que le service est appelé, ajoute la date actuelle dans le fichier date_install.log (on utilise pas uniquement bash car systemd n&#x27;as pas le path)
 ExecStart=/bin/bash -c &#x27;date &gt;&gt; /var/log/date_install.log&#x27;
 </div></code></pre>
-	<h2 id="6-rotation-des-logs-logrotate">6. Rotation des Logs (Logrotate)</h2>
-	<p>Pour éviter que les fichiers de logs ne saturent l'espace disque, Il faut configuré <code>logrotate</code>.</p>
-	<h3 id="configuration-pour-installlog">Configuration pour <code>install.log</code></h3>
-	<p>Il faut créer un fichier de configuration dans <code>/etc/logrotate.d/</code> avec les paramètres suivants :</p>
-	<ul>
-		<li><code>size 200</code> : Rotation dès que le fichier dépasse 200 octets.</li>
-		<li><code>rotate 5</code> : Conserver les 5 dernières archives.</li>
-		<li><code>compress</code> : Compresser les archives.</li>
-		<li><code>create</code> : Créer un nouveau fichier log vide après la rotation.</li>
-		<li><code>missingok</code> : Ne pas générer d'erreur si le fichier est absent.</li>
-	</ul>
-	<p>Commande :</p>
-	<pre class="hljs"><code><div><span class="hljs-built_in">sudo</span> <span class="hljs-built_in">mv</span> /SAE/install-log /etc/logrotate.d/
+<p>Pour éviter que les fichiers de logs ne saturent l'espace disque, Il faut configuré <code>logrotate</code>.</p>
+<h3 id="configuration-pour-installlog">Configuration pour <code>install.log</code></h3>
+<p>Il faut créer un fichier de configuration dans <code>/etc/logrotate.d/</code> avec les paramètres suivants :</p>
+<ul>
+<li><code>size 200</code> : Rotation dès que le fichier dépasse 200 octets.</li>
+<li><code>rotate 5</code> : Conserver les 5 dernières archives.</li>
+<li><code>compress</code> : Compresser les archives.</li>
+<li><code>create</code> : Créer un nouveau fichier log vide après la rotation.</li>
+<li><code>missingok</code> : Ne pas générer d'erreur si le fichier est absent.</li>
+</ul>
+<p>Commande :</p>
+<pre class="hljs"><code><div><span class="hljs-built_in">sudo</span> <span class="hljs-built_in">mv</span> /SAE/install-log /etc/logrotate.d/
 </div></code></pre>
-	<h3 id="contenu-de-install-log">Contenu de install-log :</h3>
-	<pre class="hljs"><code><div>/var/log/install.log {
+<!-- Capture d'écran suggérée : Résultat du déplacement du fichier install-log dans /etc/logrotate.d/ -->
+<h3 id="contenu-de-install-log">Contenu de install-log :</h3>
+<pre class="hljs"><code><div>/var/log/install.log {
     size 200
     rotate 5
     compress
@@ -650,14 +637,14 @@ ExecStart=/bin/bash -c &#x27;date &gt;&gt; /var/log/date_install.log&#x27;
     missingok
 }
 </div></code></pre>
-	<p><em>Note :</em> <code>logrotate</code> est un outil de rotation des logs qui permet de conserver les logs dans un
-		fichier compressé et de conserver un nombre maximum de fichiers.</p>
-	<h3 id="configuration-pour-dateinstalllog">Configuration pour <code>date_install.log</code></h3>
-	<p>De même pour le fichier de dates :</p>
-	<pre class="hljs"><code><div><span class="hljs-built_in">sudo</span> <span class="hljs-built_in">mv</span> /SAE/date_install /etc/logrotate.d/
+<p><em>Note :</em> <code>logrotate</code> est un outil de rotation des logs qui permet de conserver les logs dans un fichier compressé et de conserver un nombre maximum de fichiers.</p>
+<h3 id="configuration-pour-dateinstalllog">Configuration pour <code>date_install.log</code></h3>
+<p>De même pour le fichier de dates :</p>
+<pre class="hljs"><code><div><span class="hljs-built_in">sudo</span> <span class="hljs-built_in">mv</span> /SAE/date_install /etc/logrotate.d/
 </div></code></pre>
-	<h3 id="contenu-de-dateinstall">Contenu de date_install :</h3>
-	<pre class="hljs"><code><div>/var/log/date_install.log {
+<!-- Capture d'écran suggérée : Résultat du déplacement du fichier date_install dans /etc/logrotate.d/ -->
+<h3 id="contenu-de-dateinstall">Contenu de date_install :</h3>
+<pre class="hljs"><code><div>/var/log/date_install.log {
     size 200
     rotate 5
     compress
@@ -665,18 +652,15 @@ ExecStart=/bin/bash -c &#x27;date &gt;&gt; /var/log/date_install.log&#x27;
     missingok
 }
 </div></code></pre>
-	<h2 id="7-terminer">7. Terminer</h2>
-	<p>Le Linux est désormais configurée avec :</p>
-	<ul>
-		<li>Un utilisateur <code>testuser</code>.</li>
-		<li>Plsieurs logiciels installés et configurés (<code>emacs</code>, <code>apache2</code>,
-			<code>wireshark</code>, <code>javac</code> et <code>java</code>).
-		</li>
-		<li>Un Script <code>addUser</code> qui permet de créer des utilisateurs.</li>
-		<li>Un serveur web hébergeant cette notice.</li>
-		<li>Un système de surveillance et de rotation des logs de <code>addUser</code>.</li>
-	</ul>
+<h2 id="7-terminer">7. Terminer</h2>
+<p>Le système est désormais configuré :</p>
+<ul>
+<li>Un utilisateur <code>testuser</code>.</li>
+<li>Plusieurs logiciels installés et configurés (<code>emacs</code>, <code>apache2</code>, <code>wireshark</code>, <code>javac</code> et <code>java</code>).</li>
+<li>Un Script <code>addUser</code> qui permet de créer des utilisateurs.</li>
+<li>Un serveur web hébergeant cette notice.</li>
+<li>Un système de surveillance et de rotation des logs de <code>addUser</code>.</li>
+</ul>
 
 </body>
-
 </html>
