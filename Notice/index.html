@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Notice Technique pour l'installation d'un poste de développement</title>
+<title>Notice.md</title>
 <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
 
 <style>
@@ -368,7 +368,19 @@ code {
 <h1 id="notice-technique---configuration-dun-poste-de-d%C3%A9veloppement">Notice Technique - Configuration d'un poste de développement</h1>
 <p>MARTINATI Lucas - CHARLES SAMUEL</p>
 <hr>
-<p>Bonjour, voici la notice détaillée pas à pas pour la configuration d'un poste de développement. Il vous faudra un ordinateur sous Ubuntu 22.04.</p>
+<p>Ceci est une <strong>notice</strong> vous montrant les étapes à suivre pour <strong>configurer un poste de développement</strong> de manière propre est efficace.
+Vous allez créer un nouvel utilisateur, installer des logiciels de base, prendre en main un script de création d'utilisateur et gérer les logs de celui-ci.
+Deux méthodes s'offrent à vous :</p>
+<h3 id="vous-pouvez-lancer-un-script-qui-fera-tout-%C3%A0-votre-place-en-suivant-les-%C3%A9tapes-suivantes">Vous pouvez lancer un script qui fera tout à votre place, en suivant les étapes suivantes :</h3>
+<pre class="hljs"><code><div><span class="hljs-built_in">sudo</span> apt install git
+</div></code></pre>
+<p>Clonage du dépôt et lancement du script d'installation automatique :</p>
+<pre class="hljs"><code><div><span class="hljs-built_in">sudo</span> git <span class="hljs-built_in">clone</span> https://github.com/LucasM548/SAE-S1-3.git /SAE
+<span class="hljs-built_in">sudo</span> bash /SAE/Installation
+</div></code></pre>
+<p>Après cela, si vous voulez des précisions sur le script d'automatisation de création d'utilisateur, dirigez vous vers <a href="#4-script-dautomatisation-de-cr%C3%A9ation-dutilisateurs">4. Script d'Automatisation de Création d'Utilisateurs</a></p>
+<hr>
+<h3 id="ou-vous-pouvez-suivre-chaque-%C3%A9tapes-une-par-une">Ou vous pouvez suivre chaque étapes une par une :</h3>
 <h2 id="table-des-mati%C3%A8res">Table des matières</h2>
 <ul>
 <li><a href="#1-cr%C3%A9ation-du-groupe-et-de-lutilisateur">1. Création du groupe et de l'utilisateur</a></li>
@@ -384,7 +396,6 @@ code {
 <pre class="hljs"><code><div><span class="hljs-built_in">sudo</span> groupadd testgroup
 <span class="hljs-built_in">sudo</span> adduser testuser
 </div></code></pre>
-<!-- Capture d'écran suggérée : Terminal après l'exécution des commandes de création de groupe et d'utilisateur -->
 <p>Lors de la création de <code>testuser</code>, les informations suivantes vous seront demandées :</p>
 <ul>
 <li><strong>Mot de passe</strong> sécurisé (min. 8 caractères, pas un palindrome).</li>
@@ -399,48 +410,57 @@ code {
 <p>L'ajout de <code>testuser</code> au groupe <code>testgroup</code> :</p>
 <pre class="hljs"><code><div><span class="hljs-built_in">sudo</span> adduser testuser testgroup
 </div></code></pre>
-<!-- Capture d'écran suggérée : Confirmation dans le terminal après l'ajout de l'utilisateur au groupe -->
+<img src="Screen/groupadd.png" style="border-radius: 7px; display: block; margin: 0 auto;">
 <h2 id="2-installation-des-logiciels">2. Installation des logiciels</h2>
 <p>Vous devez installer un ensemble de logiciels requis :</p>
 <p>Avant toute installation, il faut mettre à jour la liste des paquets :</p>
 <pre class="hljs"><code><div><span class="hljs-built_in">sudo</span> apt update
 </div></code></pre>
-<!-- Capture d'écran suggérée : Résultat de la commande sudo apt update (mise à jour des paquets) -->
+<img src="Screen/aptUpdate.png" style="border-radius: 7px; display: block; margin: 0 auto;">
 <hr>
 <p>Installation de <code>emacs</code>, <code>apache2</code>, <code>java</code> et <code>javac</code> :</p>
 <pre class="hljs"><code><div><span class="hljs-built_in">sudo</span> apt install emacs apache2 default-jdk
 </div></code></pre>
-<!-- Capture d'écran suggérée : Résultat de l'installation de emacs et apache2 dans le terminal -->
+<ul>
+<li><strong>Confirmer les informations</strong> en tapant <code>y</code> (ou <code>O</code> en français).</li>
+</ul>
+<img src="Screen/installEmacsApaJava.png" style="border-radius: 7px; display: block; margin: 0 auto;">
 <p>Installation de <code>wireshark</code> :</p>
 <pre class="hljs"><code><div><span class="hljs-built_in">sudo</span> apt install wireshark
 </div></code></pre>
-<p>Lors de l'installation, une boîte de dialogue demande si les non-superutilisateurs doivent être autorisés à capturer des paquets. Vous devez répondre <strong>OUI</strong>.</p>
-<!-- Capture d'écran suggérée : Boîte de dialogue demandant l'autorisation pour les non-superutilisateurs -->
+<ul>
+<li><strong>Confirmer les informations</strong> en tapant <code>y</code> (ou <code>O</code> en français).
+<img src="Screen/installWireshark.png" style="border-radius: 7px; display: block; margin: 0 auto;"></li>
+</ul>
+<p>Lors de l'installation, une boîte de dialogue demande si les non-superutilisateurs doivent être autorisés à capturer des paquets. Vous devez répondre <code>OUI</code>.</p>
+<img src="Screen/superUserWireshark.png" style="border-radius: 7px; display: block; margin: 0 auto;">
 <p>Vérification que le groupe <code>wireshark</code> a bien été créé :</p>
 <pre class="hljs"><code><div>getent group wireshark
 </div></code></pre>
-<!-- Capture d'écran suggérée : Résultat de la commande getent group wireshark -->
+<img src="Screen/verifGroup.png" style="border-radius: 7px; display: block; margin: 0 auto;">
 <p>Ajout de <code>testuser</code> au groupe <code>wireshark</code> :</p>
 <pre class="hljs"><code><div><span class="hljs-built_in">sudo</span> usermod -aG wireshark testuser
 </div></code></pre>
 <p><em>Justification :</em> Cette configuration permet à <code>testuser</code> d'effectuer des captures sans avoir besoin des droits <code>root</code> (sudo). La commande <code>usermod -aG</code> ajoute le groupe <code>wireshark</code> à <code>testuser</code> sans supprimer les groupes de <code>testuser</code> existants. (-a : append, -G : group)</p>
 <p><em>Note :</em> Sous Debian, vous pouvez simplement utiliser sudo <code>adduser testuser wireshark</code>. Toutefois, la commande <code>usermod</code> est présentée ici car elle fonctionne sur toutes les distributions Linux.</p>
-<!-- Capture d'écran suggérée : Confirmation dans le terminal après l'ajout au groupe wireshark -->
 <h2 id="3-installation-et-configuration-des-scripts">3. Installation et configuration des scripts</h2>
 <p>Pour la gestion des scripts, il faut récupérer les fichiers depuis un dépôt Git.</p>
 <h3 id="r%C3%A9cup%C3%A9ration-des-scripts">Récupération des scripts</h3>
 <p>Installation de <strong>git</strong> :</p>
 <pre class="hljs"><code><div><span class="hljs-built_in">sudo</span> apt install git
 </div></code></pre>
-<!-- Capture d'écran suggérée : Résultat de l'installation de git -->
+<ul>
+<li><strong>Confirmer les informations</strong> en tapant <code>y</code> (ou <code>O</code> en français).
+<img src="Screen/installGit.png" style="border-radius: 7px; display: block; margin: 0 auto;"></li>
+</ul>
 <p>Clonage du dépôt :</p>
 <pre class="hljs"><code><div><span class="hljs-built_in">sudo</span> git <span class="hljs-built_in">clone</span> https://github.com/LucasM548/SAE-S1-3.git /SAE
 </div></code></pre>
-<p><em>Note :</em> Le dépôt contient tous les <strong>scripts</strong>, mais également des <strong>fichiers de configuration</strong> et des <strong>services systemd</strong> <em>(qui seront nécessaire lors de la suite de la configuration)</em>.</p>
-<!-- Capture d'écran suggérée : Terminal après le clonage du dépôt -->
+<p><em>Note :</em> Le dépôt contient tous les <strong>scripts</strong>, mais également des <strong>fichiers de configuration</strong> et des <strong>services systemd</strong> <em>(qui seront nécessaire lors de la suite de la configuration)</em>.
+<img src="Screen/cloneGit.png" style="border-radius: 7px; display: block; margin: 0 auto;"></p>
 <h3 id="permissions">Permissions</h3>
 <p>Donner les droits d'exécution et de lecture appropriés au dossier <code>/SAE</code> pour qu'il soit accessible par tous les utilisateurs, mais modifiable uniquement par <code>root</code>.</p>
-<pre class="hljs"><code><div><span class="hljs-built_in">sudo</span> <span class="hljs-built_in">chmod</span> -R 755 /SAE/
+<pre class="hljs"><code><div><span class="hljs-built_in">sudo</span> <span class="hljs-built_in">chmod</span> -R 755 /SAE
 </div></code></pre>
 <p><em>Choix des droits 755 :</em></p>
 <ul>
@@ -448,6 +468,11 @@ code {
 <li>Groupe/Autres : Lecture, Exécution (5)
 Cela permet aux utilisateurs d'exécuter les scripts (<code>srm</code>, <code>lkt</code>, etc.) sans pouvoir les modifier.</li>
 </ul>
+<p>Ajouter le chemin <code>/SAE/Scripts</code> au <code>PATH</code> de l'utilisateur <code>testuser</code> en modifiant son fichier <code>.bashrc</code> pour qu'il ait accsès aux scripts poubelle depuis n'importe quel répertoire :</p>
+<pre class="hljs"><code><div><span class="hljs-built_in">sudo</span> <span class="hljs-built_in">echo</span> <span class="hljs-string">&#x27;export PATH=$PATH:/SAE/Scripts&#x27;</span> | <span class="hljs-built_in">sudo</span> <span class="hljs-built_in">tee</span> -a <span class="hljs-string">&quot;/home/testuser/.bashrc&quot;</span>
+</div></code></pre>
+<p><em>Justification :</em> L'utilisation de <code>sudo tee -a</code> permet d'ajouter la ligne au fichier <code>.bashrc</code> avec les droits administrateur, évitant ainsi les problèmes de permissions, le <code>-a</code> signifie <code>append</code> et permet d'ajouter le contenu au fichier sans le remplacer.</p>
+<p><em>Note :</em> Vous pouvezsimplement utiliser la commande <code>echo 'export PATH=$PATH:/SAE/Scripts' &gt;&gt; /home/testuser/.bashrc</code>, mais uniquement si l'utilisateur est <code>root</code>, avec la commande <code>sudo -u</code>.</p>
 <hr>
 <h2 id="4-script-dautomatisation-de-cr%C3%A9ation-dutilisateurs">4. Script d'automatisation de création d'utilisateurs</h2>
 <p>Le script nommé <code>addUser</code> disponible dans le dossier <code>/SAE</code> permet la création d'utilisateurs à partir d'un fichier de configuration.</p>
@@ -468,7 +493,7 @@ Cela permet aux utilisateurs d'exécuter les scripts (<code>srm</code>, <code>lk
 <span class="hljs-comment"># Vérifie qu&#x27;il y a exactement un argument</span>
 <span class="hljs-keyword">if</span> [ <span class="hljs-variable">$#</span> -ne 1 ]; <span class="hljs-keyword">then</span>
     <span class="hljs-comment"># \033[33m avec le -e permet de mettre le texte en jaune</span>
-    <span class="hljs-comment"># et \033[0m permet de remettre la couleur par défaut</span>
+    <span class="hljs-comment"># et \033[0m permet de remettre la couleur blanche (sinon toutes les prochaines lignes seront en jaune)</span>
     <span class="hljs-built_in">echo</span> -e <span class="hljs-string">&quot;\033[33m====== Usage: <span class="hljs-variable">$0</span> &lt;fichier_config&gt; ======\033[0m&quot;</span>
     <span class="hljs-built_in">exit</span> 1
 <span class="hljs-keyword">fi</span>
@@ -509,7 +534,7 @@ nbLines=$(<span class="hljs-built_in">wc</span> -l &lt; <span class="hljs-string
         <span class="hljs-comment"># le -f permet de ne rien faire si le groupe existe déjà</span>
         groupadd -f <span class="hljs-string">&quot;<span class="hljs-variable">$group</span>&quot;</span>
         <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;Le groupe <span class="hljs-variable">$group</span> a été créé&quot;</span> &gt;&gt; <span class="hljs-variable">$log</span>
-        <span class="hljs-comment"># le &gt; /dev/null 2&gt;&amp;1 sert à rediriger le message d&#x27;erreur &quot;le répertoire personnel /home existe déjà.&quot; (il se produit car l&#x27;utilisateur aura défini /home comme home pour l&#x27;utilisateur)</span>
+        <span class="hljs-comment"># le &gt; /dev/null 2&gt;&amp;1 sert à rediriger les potentiels message d&#x27;erreur</span>
         useradd -m -k <span class="hljs-string">&quot;<span class="hljs-variable">$repskel</span>&quot;</span> -d <span class="hljs-string">&quot;<span class="hljs-variable">$rephome</span>/<span class="hljs-variable">$user</span>&quot;</span> -g <span class="hljs-string">&quot;<span class="hljs-variable">$group</span>&quot;</span> <span class="hljs-string">&quot;<span class="hljs-variable">$user</span>&quot;</span> &gt;&gt; <span class="hljs-variable">$log</span> 2&gt;&amp;1
         <span class="hljs-keyword">if</span> [ $? = 0 ]; <span class="hljs-keyword">then</span>
             <span class="hljs-comment"># \033[32m avec le -e permet de mettre le texte en vert</span>
@@ -551,7 +576,7 @@ nbLines=$(<span class="hljs-built_in">wc</span> -l &lt; <span class="hljs-string
 u2, g1, /home, /etc/skel/
 </div></code></pre>
 <p><em>Note :</em> Remplir le contenu de config.txt avec les utilisateurs que vous voulez créer.</p>
-<!-- Capture d'écran suggérée : Résultat de l'exécution du script addUser avec un exemple d'utilisateur créé -->
+<img src="Screen/testScript.png" style="border-radius: 7px; display: block; margin: 0 auto;">
 <h2 id="5-configuration-des-services-systemd">5. Configuration des Services Systemd</h2>
 <p>Vous devez configurer plusieurs services pour qu'ils se lancent automatiquement au démarrage.</p>
 <h3 id="serveur-apache2">Serveur Apache2</h3>
@@ -560,24 +585,22 @@ u2, g1, /home, /etc/skel/
 <span class="hljs-built_in">sudo</span> systemctl start apache2
 </div></code></pre>
 <p><em>Explication :</em> <code>enable</code> crée les liens symboliques nécessaires pour que systemd lance le service à chaque démarrage. <code>start</code> lance le service immédiatement sans attendre le redémarrage.</p>
-<!-- Capture d'écran suggérée : Résultat des commandes systemctl enable/start apache2 -->
+<img src="Screen/systemEnable.png" style="border-radius: 7px; display: block; margin: 0 auto;">
 <p>Accès à la Notive version web : Le site avec la notice est déplacé vers la racine du serveur web (<code>/var/www/html</code>) pour qu'il soit accessible via <code>http://127.0.0.1</code>.</p>
 <pre class="hljs"><code><div><span class="hljs-built_in">sudo</span> <span class="hljs-built_in">mv</span> /SAE/Notice/* /var/www/html/
 <span class="hljs-built_in">sudo</span> <span class="hljs-built_in">rm</span> -d /SAE/Notice
 </div></code></pre>
 <p><em>Justification :</em> <code>Apache2</code> va automatiquement chercher dans <code>/var/www/html/</code> un fichier <code>index.html</code>, on a donc ajouté l’index.html de notre notice directement à cette adresse.</p>
-<!-- Capture d'écran suggérée : Affichage de la notice dans un navigateur web à l'adresse http://127.0.0.1 -->
+<img src="Screen/index.png" style="border-radius: 7px; display: block; margin: 0 auto;">
 <h2 id="6-rotation-des-logs-logrotate">6. Rotation des Logs (Logrotate)</h2>
 <p>Un service est mis en place pour surveiller les modifications du fichier <code>/var/log/install.log</code> et enregistrer la date de modification dans <code>/var/log/date_install.log</code>.</p>
 <p>Création du fichier de log <code>date_install.log</code> :</p>
 <pre class="hljs"><code><div><span class="hljs-built_in">sudo</span> <span class="hljs-built_in">touch</span> /var/log/date_install.log
 </div></code></pre>
-<!-- Capture d'écran suggérée : Résultat de la commande touch pour créer le fichier de log -->
 <p>Déplacement des fichiers de définition systemd (<code>.path</code> et <code>.service</code>) vers <code>/etc/systemd/system/</code> :</p>
 <pre class="hljs"><code><div><span class="hljs-built_in">sudo</span> <span class="hljs-built_in">mv</span> /SAE/install-log.path /etc/systemd/system/
 <span class="hljs-built_in">sudo</span> <span class="hljs-built_in">mv</span> /SAE/install-log.service /etc/systemd/system/
 </div></code></pre>
-<!-- Capture d'écran suggérée : Résultat du déplacement des fichiers dans le terminal -->
 <p>Activation du service :</p>
 <pre class="hljs"><code><div><span class="hljs-built_in">sudo</span> systemctl daemon-reload
 <span class="hljs-built_in">sudo</span> systemctl <span class="hljs-built_in">enable</span> install-log.path
@@ -588,7 +611,7 @@ u2, g1, /home, /etc/skel/
 <li><code>daemon-reload</code> : Permet à systemd de recharger les services et de prendre en compte les nouveaux fichiers ajoutés.</li>
 <li><code>install-log.path</code> : Ce service &quot;path&quot; surveille le fichier et déclenche le service associé (<code>install-log.service</code>) lorsque le fichier <code>install.log</code> est modifié.</li>
 </ul>
-<!-- Capture d'écran suggérée : Résultat des commandes systemctl daemon-reload/enable/start install-log.path -->
+<img src="Screen/systemctl.png" style="border-radius: 7px; display: block; margin: 0 auto;">
 <h3 id="le-contenu-de-install-logpath">Le contenu de install-log.path :</h3>
 <pre class="hljs"><code><div>[Unit]
 Description=Surveille les modifications de install.log
@@ -626,7 +649,6 @@ ExecStart=/bin/bash -c &#x27;date &gt;&gt; /var/log/date_install.log&#x27;
 <p>Commande :</p>
 <pre class="hljs"><code><div><span class="hljs-built_in">sudo</span> <span class="hljs-built_in">mv</span> /SAE/install-log /etc/logrotate.d/
 </div></code></pre>
-<!-- Capture d'écran suggérée : Résultat du déplacement du fichier install-log dans /etc/logrotate.d/ -->
 <h3 id="contenu-de-install-log">Contenu de install-log :</h3>
 <pre class="hljs"><code><div>/var/log/install.log {
     size 200
@@ -641,7 +663,6 @@ ExecStart=/bin/bash -c &#x27;date &gt;&gt; /var/log/date_install.log&#x27;
 <p>De même pour le fichier de dates :</p>
 <pre class="hljs"><code><div><span class="hljs-built_in">sudo</span> <span class="hljs-built_in">mv</span> /SAE/date_install /etc/logrotate.d/
 </div></code></pre>
-<!-- Capture d'écran suggérée : Résultat du déplacement du fichier date_install dans /etc/logrotate.d/ -->
 <h3 id="contenu-de-dateinstall">Contenu de date_install :</h3>
 <pre class="hljs"><code><div>/var/log/date_install.log {
     size 200
@@ -664,6 +685,6 @@ ExecStart=/bin/bash -c &#x27;date &gt;&gt; /var/log/date_install.log&#x27;
 <pre class="hljs"><code><div><span class="hljs-built_in">sudo</span> bash /SAE/verifConfig
 </div></code></pre>
 <p><em>Note :</em> Ce script vérifie la présence des logiciels, des utilisateurs, des services systemd et des configurations de logrotate.</p>
-<!-- Capture d'écran suggérée : Résultat de l'exécution du script verifConfig -->
+<img src="Screen/verifConfig.png" style="border-radius: 7px; display: block; margin: 0 auto;">
 </body>
 </html>
