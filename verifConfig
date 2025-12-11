@@ -1,113 +1,109 @@
 #!/bin/bash
 # commande verifConfig qui permet de créer des utilisateurs
 
-VERT="\033[32m"
-ROUGE="\033[31m"
-RESET="\033[0m"
-
 echo "Démarrage de la vérification de la configuration..."
 echo "---------------------------------------------------"
 
 # --- 1. Vérification Groupe et Utilisateur ---
 if getent group testgroup > /dev/null; then
-    echo -e "${VERT}===== Le groupe 'testgroup' existe =====${RESET}"
+    echo -e "\033[32m===== Le groupe 'testgroup' existe =====\033[0m"
 else
-    echo -e "${ROUGE}===== ERREUR : Le groupe 'testgroup' est manquant =====${RESET}"
+    echo -e "\033[31m===== ERREUR : Le groupe 'testgroup' est manquant =====\033[0m"
 fi
 
 if id "testuser" > /dev/null 2>&1; then
-    echo -e "${VERT}===== L'utilisateur 'testuser' existe =====${RESET}"
+    echo -e "\033[32m===== L'utilisateur 'testuser' existe =====\033[0m"
     # -q pour le grep pour ne rien afficher
     if groups testuser | grep -q "testgroup"; then
-        echo -e "${VERT}===== 'testuser' appartient bien au groupe 'testgroup' =====${RESET}"
+        echo -e "\033[32m===== 'testuser' appartient bien au groupe 'testgroup' =====\033[0m"
     else
-        echo -e "${ROUGE}===== ERREUR : 'testuser' n'est pas dans 'testgroup' =====${RESET}"
+        echo -e "\033[31m===== ERREUR : 'testuser' n'est pas dans 'testgroup' =====\033[0m"
     fi
 else
-    echo -e "${ROUGE}===== ERREUR : L'utilisateur 'testuser' est manquant =====${RESET}"
+    echo -e "\033[31m===== ERREUR : L'utilisateur 'testuser' est manquant =====\033[0m"
 fi
 
 # --- 2. Vérification des Logiciels ---
 echo "--- Vérification des paquets ---"
 for p in "emacs" "apache2" "wireshark" "git"; do
     if dpkg -l | grep -q "^ii  $p"; then
-        echo -e "${VERT}===== Le logiciel '$p' est installé =====${RESET}"
+        echo -e "\033[32m===== Le logiciel '$p' est installé =====\033[0m"
     else
-        echo -e "${ROUGE}===== ERREUR : Le logiciel '$p' n'est pas installé =====${RESET}"
+        echo -e "\033[31m===== ERREUR : Le logiciel '$p' n'est pas installé =====\033[0m"
     fi
 done
 
 if command -v java > /dev/null 2>&1 && command -v javac > /dev/null 2>&1; then
-    echo -e "${VERT}===== Java et Javac sont installés =====${RESET}"
+    echo -e "\033[32m===== Java et Javac sont installés =====\033[0m"
 else
-    echo -e "${ROUGE}===== ERREUR : Java ou Javac manquant =====${RESET}"
+    echo -e "\033[31m===== ERREUR : Java ou Javac manquant =====\033[0m"
 fi
 
 # Vérification groupe Wireshark pour testuser
 if groups testuser | grep -q "wireshark"; then
-    echo -e "${VERT}===== 'testuser' appartient bien au groupe 'wireshark' =====${RESET}"
+    echo -e "\033[32m===== 'testuser' appartient bien au groupe 'wireshark' =====\033[0m"
 else
-    echo -e "${ROUGE}===== ERREUR : 'testuser' n'a pas les droits wireshark =====${RESET}"
+    echo -e "\033[31m===== ERREUR : 'testuser' n'a pas les droits wireshark =====\033[0m"
 fi
 
 # --- 3. Vérification Dossier /SAE et Permissions ---
 if [ -d "/SAE" ]; then
     # vérifie si les permission de /SAE sont bien 755
     if [ "$(stat -c "%a" /SAE)" == "755" ]; then
-        echo -e "${VERT}===== Le dossier /SAE existe avec les permissions 755 =====${RESET}"
+        echo -e "\033[32m===== Le dossier /SAE existe avec les permissions 755 =====\033[0m"
     else
-        echo -e "${ROUGE}===== ERREUR : /SAE existe mais permissions incorrectes ($PERM au lieu de 755) =====${RESET}"
+        echo -e "\033[31m===== ERREUR : /SAE existe mais permissions incorrectes ($PERM au lieu de 755) =====\033[0m"
     fi
 else
-    echo -e "${ROUGE}===== ERREUR : Le dossier /SAE n'existe pas =====${RESET}"
+    echo -e "\033[31m===== ERREUR : Le dossier /SAE n'existe pas =====\033[0m"
 fi
 
 # --- 4. Vérification Script addUser ---
 if [ -f "/SAE/addUser" ]; then
-    echo -e "${VERT}===== Le script 'addUser' est présent =====${RESET}"
+    echo -e "\033[32m===== Le script 'addUser' est présent =====\033[0m"
 else
-    echo -e "${ROUGE}===== ERREUR : Le script 'addUser' est introuvable =====${RESET}"
+    echo -e "\033[31m===== ERREUR : Le script 'addUser' est introuvable =====\033[0m"
 fi
 
 # --- 5. Configuration Apache ---
 if systemctl is-active --quiet apache2; then
-    echo -e "${VERT}===== Le service Apache2 est actif =====${RESET}"
+    echo -e "\033[32m===== Le service Apache2 est actif =====\033[0m"
 else
-    echo -e "${ROUGE}===== ERREUR : Le service Apache2 n'est pas lancé =====${RESET}"
+    echo -e "\033[31m===== ERREUR : Le service Apache2 n'est pas lancé =====\033[0m"
 fi
 
 # Vérifie si la notice a été déplacée (index.html ou fichiers présents)
 if ls /var/www/html/*.html > /dev/null 2>&1; then
-     echo -e "${VERT}===== Le site web (Notice) semble être en place dans /var/www/html =====${RESET}"
+     echo -e "\033[32m===== Le site web (Notice) semble être en place dans /var/www/html =====\033[0m"
 else
-     echo -e "${ROUGE}===== ERREUR : Pas de fichiers HTML trouvés dans /var/www/html =====${RESET}"
+     echo -e "\033[31m===== ERREUR : Pas de fichiers HTML trouvés dans /var/www/html =====\033[0m"
 fi
 
 # --- 6. Logs et Services Systemd Custom ---
 # Fichiers de log
 if [ -f "/var/log/install.log" ] && [ -f "/var/log/date_install.log" ]; then
-    echo -e "${VERT}===== Les fichiers de logs (install.log et date_install.log) existent =====${RESET}"
+    echo -e "\033[32m===== Les fichiers de logs (install.log et date_install.log) existent =====\033[0m"
 else
-    echo -e "${ROUGE}===== ERREUR : Un ou plusieurs fichiers de logs manquent =====${RESET}"
+    echo -e "\033[31m===== ERREUR : Un ou plusieurs fichiers de logs manquent =====\033[0m"
 fi
 
 # Service Path
 if [ -f "/etc/systemd/system/install-log.path" ]; then
-     echo -e "${VERT}===== Le fichier systemd 'install-log.path' est bien placé =====${RESET}"
+     echo -e "\033[32m===== Le fichier systemd 'install-log.path' est bien placé =====\033[0m"
      if systemctl is-active --quiet install-log.path; then
-        echo -e "${VERT}===== Le service de surveillance 'install-log.path' est actif =====${RESET}"
+        echo -e "\033[32m===== Le service de surveillance 'install-log.path' est actif =====\033[0m"
      else
-        echo -e "${ROUGE}===== ERREUR : Le service 'install-log.path' n'est pas actif =====${RESET}"
+        echo -e "\033[31m===== ERREUR : Le service 'install-log.path' n'est pas actif =====\033[0m"
      fi
 else
-     echo -e "${ROUGE}===== ERREUR : Le fichier 'install-log.path' n'est pas dans /etc/systemd/system/ =====${RESET}"
+     echo -e "\033[31m===== ERREUR : Le fichier 'install-log.path' n'est pas dans /etc/systemd/system/ =====\033[0m"
 fi
 
 # Logrotate
 if [ -f "/etc/logrotate.d/install-log" ] && [ -f "/etc/logrotate.d/date_install" ]; then
-    echo -e "${VERT}===== La configuration logrotate est présente =====${RESET}"
+    echo -e "\033[32m===== La configuration logrotate est présente =====\033[0m"
 else
-    echo -e "${ROUGE}===== ERREUR : Configuration logrotate manquante =====${RESET}"
+    echo -e "\033[31m===== ERREUR : Configuration logrotate manquante =====\033[0m"
 fi
 
 echo "---------------------------------------------------"
