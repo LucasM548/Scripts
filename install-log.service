@@ -4,5 +4,5 @@ Description=Ajoute la date dans date_install.log
 [Service]
 # Indique que ce service exécute la commande et s'arrête juste après
 Type=oneshot
-# Lorsque que le service est appelé, ajoute la date actuelle dans le fichier date_install.log (on utilise pas uniquement bash car systemd n'as pas le path)
+# Lorsque que le service est appelé, ajoute la date actuelle dans le fichier date_install.log (on n'utilise pas uniquement bash car systemd n'as pas le path)
 ExecStart=/bin/bash -c 'date >> /var/log/date_install.log'
