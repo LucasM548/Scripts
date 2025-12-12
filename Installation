@@ -7,6 +7,7 @@ apt install emacs apache2 default-jdk
 apt install wireshark
 usermod -aG wireshark testuser
 chmod -R 755 /SAE/
+echo "export PATH=$PATH:/SAE/Scripts" >> /home/testuser/.bashrc | sudo tee -a /home/testuser/.bashrc
 systemctl enable apache2
 systemctl start apache2
 mv /SAE/Notice/* /var/www/html/
