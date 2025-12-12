@@ -88,7 +88,8 @@ for ((i = 1; i <= $nbLines+1; i++)); do
                 echo "L'utilisateur $user a été ajouté au groupe wireshark" >> $log
 
                 # Autoriser l'utilisateur à utiliser l'affichage X11
-                xhost +SI:localuser:$user
+                xhost +SI:localuser:$user >> $log 2>&1
+                echo "L'utilisateur $user est autorisé à utiliser l'affichage X11" >> $log
             else
                 echo -e "\033[31m====== Erreur : L'utilisateur $user n'a pas pu être ajouté (il existe peut-être déjà) ======\033[0m"
                 echo "====== Erreur : L'utilisateur $user n'a pas pu être ajouté (il existe peut-être déjà) ======" >> $log

@@ -731,7 +731,8 @@ nbLines=$(<span class="hljs-built_in">wc</span> -l &lt; <span class="hljs-string
                 <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;L&#x27;utilisateur <span class="hljs-variable">$user</span> a été ajouté au groupe wireshark&quot;</span> &gt;&gt; <span class="hljs-variable">$log</span>
 
                 <span class="hljs-comment"># Autoriser l&#x27;utilisateur à utiliser l&#x27;affichage X11</span>
-                xhost +SI:localuser:<span class="hljs-variable">$user</span>
+                xhost +SI:localuser:<span class="hljs-variable">$user</span> &gt;&gt; <span class="hljs-variable">$log</span> 2&gt;&amp;1
+                <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;L&#x27;utilisateur <span class="hljs-variable">$user</span> est autorisé à utiliser l&#x27;affichage X11&quot;</span> &gt;&gt; <span class="hljs-variable">$log</span>
             <span class="hljs-keyword">else</span>
                 <span class="hljs-built_in">echo</span> -e <span class="hljs-string">&quot;\033[31m====== Erreur : L&#x27;utilisateur <span class="hljs-variable">$user</span> n&#x27;a pas pu être ajouté (il existe peut-être déjà) ======\033[0m&quot;</span>
                 <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;====== Erreur : L&#x27;utilisateur <span class="hljs-variable">$user</span> n&#x27;a pas pu être ajouté (il existe peut-être déjà) ======&quot;</span> &gt;&gt; <span class="hljs-variable">$log</span>
