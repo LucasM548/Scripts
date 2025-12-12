@@ -54,10 +54,10 @@ for ((i = 1; i <= $nbLines+1; i++)); do
             echo "Le groupe $group a été créé" >> $log
             # le > /dev/null 2>&1 sert à rediriger les potentiels message d'erreur
             useradd -m -k "$repskel" -d "$rephome/$user" -g "$group" "$user" >> $log 2>&1
-            echo "L'utilisateur $user a été créé avec le répertoire $rephome/$user et le squelette $repskel" >> $log
             if [ $? = 0 ]; then
                 # \033[32m avec le -e permet de mettre le texte en vert
                 # et \033[0m permet de remettre la couleur blanche (sinon toutes les prochaines lignes seront en vert)
+                echo "L'utilisateur $user a été créé avec le répertoire $rephome/$user et le squelette $repskel" >> $log
                 echo -e "\033[32m====== L'utilisateur $user a bien été créé dans le groupe $group ======\033[0m"
                 echo "====== L'utilisateur $user a bien été créé dans le groupe $group ======" >> $log
                 # mkdir -p pour créer les fichiers Downloads et Documents s'ils ne sont pas encore créés
