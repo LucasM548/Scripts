@@ -635,7 +635,11 @@ ExecStart=/bin/bash -c &#x27;date &gt;&gt; /var/log/date_install.log&#x27;
 		<li>Enregistrement des opérations dans <code>/var/log/install.log</code>.</li>
 	</ol>
 	<p><em>Note :</em> Un script <code>removeUser</code> est également disponible pour supprimer les utilisateurs et les
-		groupes contenu dans le même fichier <code>config.txt</code>.</p>
+		groupes contenu dans le même fichier <code>config.txt</code>. De plus, nous avons choisi de créer les
+		répertoires <code>Documents</code> et <code>Downloads</code> ainsi que de modifier le fichier
+		<code>.bashrc</code> individuellement pour chaque utilisateur, plutôt que de modifier le skel global. Sa évite
+		les éventuels oublis (alias, PATH, répertoires manquants) lors de la création manuelle de nouveaux skel par
+		l'administrateur.</p>
 	<p>Le script <code>addUser</code> :</p>
 	<pre class="hljs"><code><div><span class="hljs-meta">#!/bin/bash</span>
 <span class="hljs-comment"># commande addUser qui permet de créer des utilisateurs</span>
